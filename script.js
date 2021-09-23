@@ -6,14 +6,13 @@ class Question {
         this.answer3 = answer3;
         this.answer4 = answer4;
         this.answers = [answer1, answer2, answer3, answer4];
-        this.correctAnswer = 0;
-
+        this.correctAnswer = correctAnswer;
+        this.identifier = Math.random();
     }
 }
 
 const question1 = new Question(`what is the answer to this question`, `a. this`, `b. not sure`, `c. might be this one`, `ted lasso`);
 console.log(question1.answers);
-
 
 let testElement = document.createElement('div');
 testElement.innerHTML = `this is a test element`;
@@ -93,15 +92,27 @@ const nextQuestion = (question) => {
     console.log(question);
 
     questionHeading.textContent = question.question;
+    questionHeading.dataset.id= question.identifier;
+
 
     for (let index = 0; index < question.answers.length; index++) {
         const element = question.answers[index];
         answersDiv.children[index].textContent = element;
+        answersDiv.children[index].dataset.key = index;
 
     }
 };
 
+const answerSelected = (event) => {
+    console.log(event.target);
+    let choice = event.target.dataset.key;
+    let answer = questionHeading.dataset.id
+
+    
+}
+
 startButton.addEventListener('click', quizStart);
+answersDiv.addEventListener('click', answerSelected)
 
 
 
