@@ -217,6 +217,9 @@ const initialization = () => {
         scoreList = storedScoreList;
     }
 
+    score.currentValue = 0
+    scoreSubmitted = false
+    questionCounter = 0
     togglePageState(homeState);
 };
 
@@ -259,7 +262,7 @@ const saveScore = (event) => {
 };
 
 const restart = () => {
-    togglePageState(homeState);
+    initialization();
 };
 
 initialization();
