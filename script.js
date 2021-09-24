@@ -1,21 +1,5 @@
-class Question {
-    constructor(question = ``, answer1 = ``, answer2 = ``, answer3 = ``, answer4 = ``, correctAnswer = 0) {
-        this.question = question;
-        this.answer1 = answer1;
-        this.answer2 = answer2;
-        this.answer3 = answer3;
-        this.answer4 = answer4;
-        this.answers = [answer1, answer2, answer3, answer4];
-        this.correctAnswer = correctAnswer;
-        this.identifier = Math.random();
-    }
-}
-
-const question1 = new Question(`what is the answer to this question`, `a. this`, `b. not sure`, `c. might be this one`, `ted lasso`);
-console.log(question1.answers);
-
-let testElement = document.createElement('div');
-testElement.innerHTML = `this is a test element`;
+// let testElement = document.createElement('div');
+// testElement.innerHTML = `this is a test element`;
 // document.body.appendChild(testElement);
 
 /* 
@@ -48,24 +32,60 @@ THEN I can save my initials and my score
 2. button that lets you clear high scores
 */
 
+let questionList = [];
+let questionCounter = 0;
+
+class Question {
+    constructor(question = ``, answer1 = ``, answer2 = ``, answer3 = ``, answer4 = ``, correctAnswer = 0) {
+        this.question = question;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
+        this.answers = [answer1, answer2, answer3, answer4];
+        this.correctAnswer = correctAnswer;
+        this.identifier = Math.random();
+
+        questionList.push(this);
+    }
+}
+
+const question1 = new Question(`what is the answer to this question`, `a. this`, `b. not sure`, `c. might be this one`, `ted lasso`, 3);
+const question2 = new Question(`what is question 2 going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
+const question3 = new Question(`what is question 3 going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
+const question4 = new Question(`what is question 4 going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
+
+
+
 const homepageDiv = document.querySelector('.homepage');
 const questionDiv = document.querySelector('.question-section');
 const doneDiv = document.querySelector('.quiz-done');
 const answersDiv = document.querySelector('.question-section ol');
 const questionHeading = document.querySelector('.question-section h1');
-console.log(answersDiv);
+const resultEl = document.querySelector('#result');
+const scoreEl =document.querySelector('#score');
+
 const homeState = 'homepage';
 const quizState = 'quiz';
 const doneState = 'done';
-let pageState = homeState;
 
 const startButton = document.querySelector('.start-button');
 
+let pageState = homeState;
+
+let score = {
+    currentValue:0,
+    startingBonus:50,
+    decrementUnit: 1,
+    decrementInterval: 1000
+}
+
+
 const initialization = () => {
     togglePageState(homeState);
-
 };
 
+//Keeps track of changing between homescreen, question screen, and finish screen.
 const togglePageState = (newState) => {
     pageState = newState;
     if (pageState == homeState) {
@@ -83,37 +103,61 @@ const togglePageState = (newState) => {
     }
 };
 
+// Start Quiz
 const quizStart = () => {
     togglePageState(quizState);
-    nextQuestion(question1);
+    scoreEl
+    nextQuestion(questionList[0]);
 };
 
-const nextQuestion = (question) => {
-    console.log(question);
+// Starts next question, fills in question information on page. Hides result.
+let answered = false;
 
+const nextQuestion = (question) => {
+
+    answered = false;
     questionHeading.textContent = question.question;
-    questionHeading.dataset.id= question.identifier;
+    questionHeading.dataset.id = question.identifier;
+    resultEl.style.display = 'none';
 
 
     for (let index = 0; index < question.answers.length; index++) {
         const element = question.answers[index];
         answersDiv.children[index].textContent = element;
         answersDiv.children[index].dataset.key = index;
+    }
+};
+
+//function that takes click event input to determine if the answer is correct. 
+const answerSelected = (event) => {
+    console.log(event.target);
+    let choice = event.target.dataset.key;
+
+    if (answered == false) {
+
+
+        if (choice == questionList[questionCounter].correctAnswer) {
+            resultEl.textContent = `That's right!`;
+        } else {
+            resultEl.textContent = `Fail`;
+        }
+
+        resultEl.style.display = 'block';
+
+        answered = true;
+        setTimeout(() => {
+            questionCounter++;
+            if (questionCounter < questionList.length) {
+                nextQuestion(questionList[questionCounter]);
+            } else {
+                togglePageState(doneState);
+            }
+        }, 2000);
 
     }
 };
 
-const answerSelected = (event) => {
-    console.log(event.target);
-    let choice = event.target.dataset.key;
-    let answer = questionHeading.dataset.id
-
-    
-}
-
 startButton.addEventListener('click', quizStart);
-answersDiv.addEventListener('click', answerSelected)
-
-
+answersDiv.addEventListener('click', answerSelected);
 
 initialization();
