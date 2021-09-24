@@ -33,16 +33,7 @@ body {
     margin: 20vh 15vw;
 }
 
-/* homepage Styling */
-h1{
-    margin: .74rem;
-}
-
-.homepage p {
-    font-size: 1rem;
-    text-align: center;
-    margin-bottom: .75rem;
-}
+/* button Styling */
 
 .button{
     display: flex;
@@ -52,35 +43,14 @@ h1{
     border: none;
     background-color: var(--opal);
     min-width: min-content;
-    width : 30vw;
+    width : 100%;
     color: var(--xiketic);
     padding: .5rem;
-    margin: .5rem;
+    margin: .5rem 0;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.5rem;
     transition: .25s;
-    height: 3.5rem;
-    font-weight: bold;
-
-
-}
-
-.start-button button{
-    align-self: center;
-    background: none;
-    border: none;
-    margin: 0px;
-    padding: 0px;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.question-button button{
-    background: none;
-    border: none;
-    margin: 0px;
-    padding: 0px;
-    font-size: 1rem;
+    min-height: 3.5rem;
     font-weight: bold;
 }
 
@@ -88,3 +58,39 @@ h1{
     background-color: var(--lavender-gray);
     transform: translateY(-3px);
 }
+
+/* heading stylings */
+
+h1{
+    text-align: center;
+    font-size: 2rem;
+    margin: .74rem;
+}
+
+/* homepage Styling */
+
+.homepage p {
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: .75rem;
+}
+
+.homepage div, .button-list{
+    width: 80%;
+}
+
+
+
+.start-button{
+    align-items: center;
+}
+
+/* Questions Styling */
+
+#result{
+    font-size: 3rem;
+}
+
+/* endpage styling */
+
+
