@@ -146,7 +146,6 @@ const nextQuestion = (question) => {
 
         const answer = question.answers[index];
         let answerButton = document.createElement('button');
-        console.log(answerButton);
         answerButton.textContent = answer;
         answerButton.className = `button question-button`;
         answerButton.type = 'button';
@@ -157,7 +156,6 @@ const nextQuestion = (question) => {
 
 //function that takes click event input to determine if the answer is correct. Also determines if the the next page is a question or the end page.
 const answerSelected = (event) => {
-    console.log(event.target);
     let choice = event.target.dataset.key;
 
     if (answered == false) {
@@ -217,6 +215,7 @@ const initialization = () => {
         scoreList = storedScoreList;
     }
 
+    finalScoreEl.textContent = `Your final score was:`
     score.currentValue = 0
     scoreSubmitted = false
     questionCounter = 0
@@ -237,6 +236,7 @@ const quizStart = () => {
 
 let scoreSubmitted = false;
 
+//when the user clicks the submit button, it writes the score to the scoreList array and saves it to memory. 
 const saveScore = (event) => {
     event.preventDefault();
 
@@ -251,6 +251,10 @@ const saveScore = (event) => {
         if (newScore.initials != '') [
             scoreList.push(newScore)
         ];
+        
+        scoreList = scoreList.sort( (a, b) => {
+            return b.score - a.score
+        })
 
         localStorage.setItem('scoreList', JSON.stringify(scoreList));
 
