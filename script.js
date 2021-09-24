@@ -83,7 +83,9 @@ let score = {
 };
 
 const finalScoreUpdate = (score) => {
-    finalScoreEl.textContent = `Your final score was: ${score}`
+    let fancyScoreEl =document.createElement('span');
+    fancyScoreEl.textContent =` ${score}`
+    finalScoreEl.appendChild(fancyScoreEl);
 }
 
 //Keeps track of changing between homescreen, question screen, and finish screen.
@@ -167,7 +169,7 @@ const answerSelected = (event) => {
             } else {
                 togglePageState(doneState);
             }
-        }, 1000);
+        }, 100);
         
     }
     

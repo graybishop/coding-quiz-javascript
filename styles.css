@@ -30,7 +30,7 @@ body {
 .homepage, .question-section, .quiz-done{
     flex-flow: column;
     align-items: center;
-    margin: 20vh 15vw;
+    margin: 10vh 15vw;
 }
 
 /* button Styling */
