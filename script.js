@@ -89,6 +89,7 @@ const resultDelay = 500
 
 let pageState = homeState;
 let intervalID;
+let scoreList = [];
 
 let score = {
     currentValue: 0,
@@ -210,6 +211,12 @@ const clearDivChildren = (divEl) => {
 
 // runs on page load. Sets the page to the homepage.
 const initialization = () => {
+    let storedScoreList = JSON.parse(localStorage.getItem('scoreList'))
+
+    if (storedScoreList !== null) {
+        scoreList = storedScoreList;
+      }
+
     togglePageState(homeState);
 };
 
@@ -227,12 +234,18 @@ const quizStart = () => {
 
 const saveScore = (event) => {
     event.preventDefault()
+    
     let newScore ={
         initials: document.querySelector('#initials').value,
         score: score.currentValue
     }
-    localStorage.setItem('latestScore', JSON.stringify(newScore))
-    
+
+    if(newScore.initials != '')[
+        scoreList.push(newScore)
+    ]
+
+    localStorage.setItem('scoreList',JSON.stringify(scoreList))
+
 }
 
 initialization();
