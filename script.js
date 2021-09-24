@@ -81,9 +81,6 @@ let score = {
 }
 
 
-const initialization = () => {
-    togglePageState(homeState);
-};
 
 //Keeps track of changing between homescreen, question screen, and finish screen.
 const togglePageState = (newState) => {
@@ -106,21 +103,33 @@ const togglePageState = (newState) => {
 // Start Quiz
 const quizStart = () => {
     togglePageState(quizState);
-    scoreEl
+    score.currentValue += score.startingBonus
+    scoreEl.textContent =`Time/Score: ${score.currentValue}`
     nextQuestion(questionList[0]);
+    setInterval(scoreCountDown, score.decrementInterval);
 };
+
+const scoreCountDown = () => {
+    if(score.currentValue > 0){
+    score.currentValue -= score.decrementUnit
+    scoreEl.textContent =`Time/Score: ${score.currentValue}`
+    } else {
+        score.currentValue = 0
+    }
+    scoreEl.textContent =`Time/Score: ${score.currentValue}`
+}
 
 // Starts next question, fills in question information on page. Hides result.
 let answered = false;
 
 const nextQuestion = (question) => {
-
+    
     answered = false;
     questionHeading.textContent = question.question;
     questionHeading.dataset.id = question.identifier;
     resultEl.style.display = 'none';
-
-
+    
+    
     for (let index = 0; index < question.answers.length; index++) {
         const element = question.answers[index];
         answersDiv.children[index].textContent = element;
@@ -132,19 +141,19 @@ const nextQuestion = (question) => {
 const answerSelected = (event) => {
     console.log(event.target);
     let choice = event.target.dataset.key;
-
+    
     if (answered == false) {
-
-
+        
+        
         if (choice == questionList[questionCounter].correctAnswer) {
             resultEl.textContent = `That's right!`;
         } else {
             resultEl.textContent = `Fail`;
         }
-
+        
         resultEl.style.display = 'block';
-
-        answered = true;
+        
+        
         setTimeout(() => {
             questionCounter++;
             if (questionCounter < questionList.length) {
@@ -153,11 +162,17 @@ const answerSelected = (event) => {
                 togglePageState(doneState);
             }
         }, 2000);
-
+        
     }
+
+    answered = true;
 };
 
 startButton.addEventListener('click', quizStart);
 answersDiv.addEventListener('click', answerSelected);
+
+const initialization = () => {
+    togglePageState(homeState);
+};
 
 initialization();
