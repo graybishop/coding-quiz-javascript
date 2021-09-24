@@ -1,3 +1,4 @@
+
 :root{
     --skobeloff: #156064ff;
     --caribbean-green: #00c49aff;
@@ -19,19 +20,28 @@
     margin: 0px;
 }
 
+/* styling for page */
 body {
     background-color: var(--xiketic);
     color: var(--platinum);
 }
 
-h1{
-    margin: .74rem;
-}
 
 .homepage, .question-section, .quiz-done{
     flex-flow: column;
     align-items: center;
     margin: 20vh 15vw;
+}
+
+/* homepage Styling */
+h1{
+    margin: .74rem;
+}
+
+.homepage p {
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: .75rem;
 }
 
 .button{
@@ -50,25 +60,31 @@ h1{
     font-size: 1rem;
     transition: .25s;
     height: 3.5rem;
-
+    font-weight: bold;
 
 
 }
 
 .start-button button{
     align-self: center;
-    justify-self: center;
-    appearance: none;
-    border:none;
     background: none;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.question-button button{
+    background: none;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 .button:hover{
     background-color: var(--lavender-gray);
+    transform: translateY(-3px);
 }
-
-
-li{
-    list-style: none;
-}
-

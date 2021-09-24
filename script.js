@@ -52,7 +52,7 @@ class Question {
 
 const question1 = new Question(`what is the answer to this question`, `a. this`, `b. not sure`, `c. might be this one`, `ted lasso`, 3);
 const question2 = new Question(`what is question 2 going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
-const question3 = new Question(`what is question 3 going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
+const question3 = new Question(`what is question 3;lkjadsf ;lkjad;lfkjioandm;fkand;flk a;idsujf;oakjndf;lkja ;oidfja;lkfd ;oliajd f;lkajmf;oiaj df;lk ma;ldfij ;oaidfj;laijf; oiajdf;lija;fodij a;l going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
 const question4 = new Question(`what is question 4 going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
 
 
@@ -60,7 +60,7 @@ const question4 = new Question(`what is question 4 going to be?`, `could be this
 const homepageDiv = document.querySelector('.homepage');
 const questionDiv = document.querySelector('.question-section');
 const doneDiv = document.querySelector('.quiz-done');
-const answersDiv = document.querySelector('.question-section ol');
+const answersDiv = document.querySelector('.question-section div');
 const questionHeading = document.querySelector('.question-section h1');
 const resultEl = document.querySelector('#result');
 const scoreEl = document.querySelector('#score');
@@ -150,7 +150,7 @@ const answerSelected = (event) => {
             resultEl.textContent = `That's right!`;
             score.currentValue += 20;
         } else {
-            resultEl.textContent = `Fail`;
+            resultEl.textContent = `Not quite!`;
             score.currentValue -= 20;
         }
 
