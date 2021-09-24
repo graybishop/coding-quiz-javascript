@@ -52,11 +52,13 @@ body {
     transition: .25s;
     min-height: 3.5rem;
     font-weight: bold;
+    box-shadow: 0px 0px green;
 }
 
 .button:hover{
     background-color: var(--lavender-gray);
-    transform: translateY(-3px);
+    transform: translateY(-5px);
+    box-shadow: 0px 5px var(--slate-gray);
 }
 
 
@@ -114,6 +116,10 @@ header .button{
 
 #result{
     font-size: 3rem;
+}
+
+.question-button:hover{
+    font-size: 1.6rem;
 }
 
 /* end page styling */
