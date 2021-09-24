@@ -101,7 +101,80 @@ const togglePageState = (newState) => {
     }
 };
 
-// Start Quiz
+
+//updates the text in the header that tracts the score. 
+const scoreUpdate = () => {
+    if (score.currentValue < 0) {
+        score.currentValue = 0;
+    }
+    scoreEl.textContent = `Time/Score: ${score.currentValue}`;
+};
+
+// Starts next question, fills in question information on page. Hides result from previous question
+let answered = false;
+
+const nextQuestion = (question) => {
+    
+    answered = false;
+    questionHeading.textContent = question.question;
+    questionHeading.dataset.id = question.identifier;
+    resultEl.style.display = 'none';
+    
+    
+    for (let index = 0; index < question.answers.length; index++) {
+        const element = question.answers[index];
+        answersDiv.children[index].textContent = element;
+        answersDiv.children[index].dataset.key = index;
+    }
+};
+
+//function that takes click event input to determine if the answer is correct. Also determines if the the next page is a question or the end page.
+const answerSelected = (event) => {
+    console.log(event.target);
+    let choice = event.target.dataset.key;
+    
+    if (answered == false) {
+        
+        
+        if (choice == questionList[questionCounter].correctAnswer) {
+            resultEl.textContent = `That's right!`;
+            resultEl.style.color = 'green';
+            score.currentValue += 20;
+        } else {
+            resultEl.textContent = `Not quite!`;
+            resultEl.style.color = 'red';
+            score.currentValue -= 20;
+        }
+        
+        scoreUpdate();
+        resultEl.style.display = 'block';
+        
+        questionCounter++;
+        
+        if (questionCounter == questionList.length) {
+            clearInterval(intervalID);
+        }
+        
+        setTimeout(() => {
+            
+            if (questionCounter < questionList.length) {
+                nextQuestion(questionList[questionCounter]);
+            } else {
+                togglePageState(doneState);
+            }
+        }, 1000);
+        
+    }
+    
+    answered = true;
+};
+
+
+const initialization = () => {
+    togglePageState(homeState);
+};
+
+// initializes the quiz. starts the scoring system. 
 const quizStart = () => {
     togglePageState(quizState);
     score.currentValue += score.startingBonus;
@@ -113,77 +186,8 @@ const quizStart = () => {
     }, score.decrementInterval);
 };
 
-const scoreUpdate = () => {
-    if (score.currentValue < 0) {
-        score.currentValue = 0;
-    }
-    scoreEl.textContent = `Time/Score: ${score.currentValue}`;
-};
+initialization();
 
-// Starts next question, fills in question information on page. Hides result.
-let answered = false;
-
-const nextQuestion = (question) => {
-
-    answered = false;
-    questionHeading.textContent = question.question;
-    questionHeading.dataset.id = question.identifier;
-    resultEl.style.display = 'none';
-
-
-    for (let index = 0; index < question.answers.length; index++) {
-        const element = question.answers[index];
-        answersDiv.children[index].textContent = element;
-        answersDiv.children[index].dataset.key = index;
-    }
-};
-
-//function that takes click event input to determine if the answer is correct. 
-const answerSelected = (event) => {
-    console.log(event.target);
-    let choice = event.target.dataset.key;
-
-    if (answered == false) {
-
-
-        if (choice == questionList[questionCounter].correctAnswer) {
-            resultEl.textContent = `That's right!`;
-            resultEl.style.color = 'green'
-            score.currentValue += 20;
-        } else {
-            resultEl.textContent = `Not quite!`;
-            resultEl.style.color = 'red'
-            score.currentValue -= 20;
-        }
-
-        scoreUpdate();
-        resultEl.style.display = 'block';
-
-        questionCounter++;
-
-        if (questionCounter == questionList.length) {
-            clearInterval(intervalID);
-        }
-
-        setTimeout(() => {
-
-            if (questionCounter < questionList.length) {
-                nextQuestion(questionList[questionCounter]);
-            } else {
-                togglePageState(doneState);
-            }
-        }, 1000);
-
-    }
-
-    answered = true;
-};
-
+// Event bindings for start button, and answer button. 
 startButton.addEventListener('click', quizStart);
 answersDiv.addEventListener('click', answerSelected);
-
-const initialization = () => {
-    togglePageState(homeState);
-};
-
-initialization();
