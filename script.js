@@ -63,7 +63,7 @@ const doneDiv = document.querySelector('.quiz-done');
 const answersDiv = document.querySelector('.question-section ol');
 const questionHeading = document.querySelector('.question-section h1');
 const resultEl = document.querySelector('#result');
-const scoreEl =document.querySelector('#score');
+const scoreEl = document.querySelector('#score');
 
 const homeState = 'homepage';
 const quizState = 'quiz';
@@ -72,13 +72,14 @@ const doneState = 'done';
 const startButton = document.querySelector('.start-button');
 
 let pageState = homeState;
+let intervalID;
 
 let score = {
-    currentValue:0,
-    startingBonus:50,
+    currentValue: 0,
+    startingBonus: 50,
     decrementUnit: 1,
     decrementInterval: 1000
-}
+};
 
 
 
@@ -103,33 +104,33 @@ const togglePageState = (newState) => {
 // Start Quiz
 const quizStart = () => {
     togglePageState(quizState);
-    score.currentValue += score.startingBonus
-    scoreEl.textContent =`Time/Score: ${score.currentValue}`
+    score.currentValue += score.startingBonus;
+    scoreEl.textContent = `Time/Score: ${score.currentValue}`;
     nextQuestion(questionList[0]);
-    setInterval(scoreCountDown, score.decrementInterval);
+    intervalID = setInterval(() => {
+        score.currentValue -= score.decrementUnit;
+        scoreUpdate();
+    }, score.decrementInterval);
 };
 
-const scoreCountDown = () => {
-    if(score.currentValue > 0){
-    score.currentValue -= score.decrementUnit
-    scoreEl.textContent =`Time/Score: ${score.currentValue}`
-    } else {
-        score.currentValue = 0
+const scoreUpdate = () => {
+    if (score.currentValue < 0) {
+        score.currentValue = 0;
     }
-    scoreEl.textContent =`Time/Score: ${score.currentValue}`
-}
+    scoreEl.textContent = `Time/Score: ${score.currentValue}`;
+};
 
 // Starts next question, fills in question information on page. Hides result.
 let answered = false;
 
 const nextQuestion = (question) => {
-    
+
     answered = false;
     questionHeading.textContent = question.question;
     questionHeading.dataset.id = question.identifier;
     resultEl.style.display = 'none';
-    
-    
+
+
     for (let index = 0; index < question.answers.length; index++) {
         const element = question.answers[index];
         answersDiv.children[index].textContent = element;
@@ -141,28 +142,36 @@ const nextQuestion = (question) => {
 const answerSelected = (event) => {
     console.log(event.target);
     let choice = event.target.dataset.key;
-    
+
     if (answered == false) {
-        
-        
+
+
         if (choice == questionList[questionCounter].correctAnswer) {
             resultEl.textContent = `That's right!`;
+            score.currentValue += 20;
         } else {
             resultEl.textContent = `Fail`;
+            score.currentValue -= 20;
         }
-        
+
+        scoreUpdate();
         resultEl.style.display = 'block';
-        
-        
+
+        questionCounter++;
+
+        if (questionCounter == questionList.length) {
+            clearInterval(intervalID);
+        }
+
         setTimeout(() => {
-            questionCounter++;
+
             if (questionCounter < questionList.length) {
                 nextQuestion(questionList[questionCounter]);
             } else {
                 togglePageState(doneState);
             }
-        }, 2000);
-        
+        }, 1000);
+
     }
 
     answered = true;
