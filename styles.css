@@ -125,3 +125,33 @@ h1{
     font-weight: bold;
     color: var(--xiketic)
 }
+
+
+@keyframes rainbow-color {
+    0%{
+        color:var(--platinum);
+    }
+
+    20%{
+        color: green;
+    }
+    40%{
+        color: yellow;
+    }
+    60%{
+        color: red;
+    }
+
+    80%{
+        color: indigo;
+    }
+
+    100%{
+        color:var(--platinum);
+    }
+
+}
+
+h2 span{
+    animation: rainbow-color 3s infinite;
+}
