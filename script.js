@@ -148,9 +148,11 @@ const answerSelected = (event) => {
 
         if (choice == questionList[questionCounter].correctAnswer) {
             resultEl.textContent = `That's right!`;
+            resultEl.style.color = 'green'
             score.currentValue += 20;
         } else {
             resultEl.textContent = `Not quite!`;
+            resultEl.style.color = 'red'
             score.currentValue -= 20;
         }
 
