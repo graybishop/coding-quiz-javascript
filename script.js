@@ -87,17 +87,17 @@ let score = {
 const togglePageState = (newState) => {
     pageState = newState;
     if (pageState == homeState) {
-        homepageDiv.style.display = 'block';
+        homepageDiv.style.display = 'flex';
         questionDiv.style.display = 'none';
         doneDiv.style.display = 'none';
     } else if (pageState == quizState) {
         homepageDiv.style.display = 'none';
-        questionDiv.style.display = 'block';
+        questionDiv.style.display = 'flex';
         doneDiv.style.display = 'none';
     } else {
         homepageDiv.style.display = 'none';
         questionDiv.style.display = 'none';
-        doneDiv.style.display = 'block';
+        doneDiv.style.display = 'flex';
     }
 };
 
