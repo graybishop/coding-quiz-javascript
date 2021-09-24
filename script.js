@@ -25,24 +25,35 @@ THEN I can save my initials and my score
 1. homepage with button to start quiz
 
 1. questions pop up, and timer starts in the corner starts at 75 and counts down. 
-2. questions and answered and scores are added or substracted from the timer
-3. game is over, ask for initals for to ask for high score
+2. questions and answered and scores are added or subtracted from the timer
+3. game is over, ask for initials for to ask for high score
 
-1. highscore page with list of highscorers
+1. high score page with list of high scorers
 2. button that lets you clear high scores
 */
 
 let questionList = [];
 let questionCounter = 0;
 
+// class Question {
+//     constructor(question = ``, answer1 = ``, answer2 = ``, answer3 = ``, answer4 = ``, correctAnswer = 0) {
+//         this.question = question;
+//         this.answer1 = answer1;
+//         this.answer2 = answer2;
+//         this.answer3 = answer3;
+//         this.answer4 = answer4;
+//         this.answers = [answer1, answer2, answer3, answer4];
+//         this.correctAnswer = correctAnswer;
+//         this.identifier = Math.random();
+
+//         questionList.push(this);
+//     }
+// }
+
 class Question {
-    constructor(question = ``, answer1 = ``, answer2 = ``, answer3 = ``, answer4 = ``, correctAnswer = 0) {
+    constructor(question = ``, answers = [], correctAnswer = 0) {
         this.question = question;
-        this.answer1 = answer1;
-        this.answer2 = answer2;
-        this.answer3 = answer3;
-        this.answer4 = answer4;
-        this.answers = [answer1, answer2, answer3, answer4];
+        this.answers = answers;
         this.correctAnswer = correctAnswer;
         this.identifier = Math.random();
 
@@ -50,10 +61,11 @@ class Question {
     }
 }
 
-const question1 = new Question(`what is the answer to this question`, `a. this`, `b. not sure`, `c. might be this one`, `ted lasso`, 3);
-const question2 = new Question(`what is question 2 going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
-const question3 = new Question(`what is question 3;lkjadsf ;lkjad;lfkjioandm;fkand;flk a;idsujf;oakjndf;lkja ;oidfja;lkfd ;oliajd f;lkajmf;oiaj df;lk ma;ldfij ;oaidfj;laijf; oiajdf;lija;fodij a;l going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
-const question4 = new Question(`what is question 4 going to be?`, `could be this`, `not sure`, `maybe this one?`, `not ted lasso`, 2);
+
+const question1 = new Question(`what is the answer to this question`, [`a. this`, `b. not sure`, `c. might be this one`, `ted lasso`], 3);
+const question2 = new Question(`what is question 2 going to be?`, [`could be this`, `not sure`, `maybe this one?`, `not ted lasso`], 2);
+const question3 = new Question(`what is question 3 going to be?`, [`could be this`, `not sure`, `maybe this one?`, `not ted lasso`], 2);
+const question4 = new Question(`what is question 4 going to be?`, [`could be this`, `not sure`, `maybe this one?`, `not ted lasso`], 2);
 
 
 
@@ -88,7 +100,7 @@ const finalScoreUpdate = (score) => {
     finalScoreEl.appendChild(fancyScoreEl);
 }
 
-//Keeps track of changing between homescreen, question screen, and finish screen.
+//Keeps track of changing between home screen, question screen, and finish screen.
 const togglePageState = (newState) => {
     pageState = newState;
     if (pageState == homeState) {
@@ -183,7 +195,7 @@ const answerSelected = (event) => {
             } else {
                 togglePageState(doneState);
             }
-        }, 100);
+        }, 500);
         
     }
     
