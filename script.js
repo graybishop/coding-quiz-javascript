@@ -77,12 +77,15 @@ const questionHeading = document.querySelector('.question-section h1');
 const resultEl = document.querySelector('#result');
 const scoreEl = document.querySelector('#score');
 const finalScoreEl = document.querySelector('.quiz-done h2');
+const initialsSubmitBtn =document.querySelector('.quiz-done .button');
 
 const homeState = 'homepage';
 const quizState = 'quiz';
 const doneState = 'done';
 
 const startButton = document.querySelector('.start-button');
+
+const resultDelay = 500
 
 let pageState = homeState;
 let intervalID;
@@ -133,18 +136,11 @@ const scoreUpdate = () => {
 let answered = false;
 
 const nextQuestion = (question) => {
-
     answered = false;
     questionHeading.textContent = question.question;
     questionHeading.dataset.id = question.identifier;
     resultEl.style.display = 'none';
 
-
-    // for (let index = 0; index < question.answers.length; index++) {
-    //     const element = question.answers[index];
-    //     answersDiv.children[index].textContent = element;
-    //     answersDiv.children[index].dataset.key = index;
-    // }
     for (let index = 0; index < question.answers.length; index++) {
 
         const answer = question.answers[index];
@@ -183,14 +179,14 @@ const answerSelected = (event) => {
         }
 
         setTimeout(() => {
-            clearDivChildren(answersDiv)
+            clearDivChildren(answersDiv);
 
             if (isEndOfQuiz()) {
                 togglePageState(doneState);
             } else {
                 nextQuestion(questionList[questionCounter]);
             }
-        }, 500);
+        }, resultDelay);
 
     }
 
@@ -199,11 +195,11 @@ const answerSelected = (event) => {
 
 const isEndOfQuiz = () => {
     if (questionCounter < questionList.length) {
-        return false
+        return false;
     } else {
-        return true
+        return true;
     }
-}
+};
 
 // clears given element of all children
 const clearDivChildren = (divEl) => {
@@ -229,8 +225,19 @@ const quizStart = () => {
     }, score.decrementInterval);
 };
 
+const saveScore = (event) => {
+    event.preventDefault()
+    let newScore ={
+        initials: document.querySelector('#initials').value,
+        score: score.currentValue
+    }
+    localStorage.setItem('latestScore', JSON.stringify(newScore))
+    
+}
+
 initialization();
 
 // Event bindings for start button, and answer button. 
 startButton.addEventListener('click', quizStart);
 answersDiv.addEventListener('click', answerSelected);
+initialsSubmitBtn.addEventListener('click', saveScore);
