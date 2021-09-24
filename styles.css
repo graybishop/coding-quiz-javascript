@@ -93,4 +93,32 @@ h1{
 
 /* end page styling */
 
+.quiz-done h2{
+    margin-bottom: 1rem;
+}
 
+.quiz-done form{
+    width: 80%;
+}
+
+.quiz-done div{
+    display: flex
+}
+
+.quiz-done form label{
+    height: 3rem;
+    font-size: 1.2rem;
+    text-align: right;
+    margin: 0 .5rem;
+    display:flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.quiz-done form input{
+    height: 3rem;
+    font-size: 1.2rem;
+    flex: 2 1;
+    border: none;
+    border-radius: 5px;
+}
