@@ -77,7 +77,7 @@ const questionHeading = document.querySelector('.question-section h1');
 const resultEl = document.querySelector('#result');
 const scoreEl = document.querySelector('#score');
 const finalScoreEl = document.querySelector('.quiz-done h2');
-const initialsSubmitBtn =document.querySelector('.quiz-done .button');
+const initialsSubmitBtn = document.querySelector('.quiz-done .button');
 
 const homeState = 'homepage';
 const quizState = 'quiz';
@@ -85,7 +85,7 @@ const doneState = 'done';
 
 const startButton = document.querySelector('.start-button');
 
-const resultDelay = 500
+const resultDelay = 500;
 
 let pageState = homeState;
 let intervalID;
@@ -211,11 +211,11 @@ const clearDivChildren = (divEl) => {
 
 // runs on page load. Sets the page to the homepage.
 const initialization = () => {
-    let storedScoreList = JSON.parse(localStorage.getItem('scoreList'))
+    let storedScoreList = JSON.parse(localStorage.getItem('scoreList'));
 
     if (storedScoreList !== null) {
         scoreList = storedScoreList;
-      }
+    }
 
     togglePageState(homeState);
 };
@@ -232,21 +232,35 @@ const quizStart = () => {
     }, score.decrementInterval);
 };
 
+let scoreSubmitted = false;
+
 const saveScore = (event) => {
-    event.preventDefault()
-    
-    let newScore ={
-        initials: document.querySelector('#initials').value,
-        score: score.currentValue
+    event.preventDefault();
+
+    if (scoreSubmitted == false) {
+        scoreSubmitted = true;
+
+        let newScore = {
+            initials: document.querySelector('#initials').value,
+            score: score.currentValue
+        };
+
+        if (newScore.initials != '') [
+            scoreList.push(newScore)
+        ];
+
+        localStorage.setItem('scoreList', JSON.stringify(scoreList));
+
+        finalScoreEl.textContent = `Score Submitted!`
+
+        setTimeout(restart, 2000);
     }
 
-    if(newScore.initials != '')[
-        scoreList.push(newScore)
-    ]
+};
 
-    localStorage.setItem('scoreList',JSON.stringify(scoreList))
-
-}
+const restart = () => {
+    togglePageState(homeState);
+};
 
 initialization();
 
