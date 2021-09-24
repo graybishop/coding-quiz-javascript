@@ -185,10 +185,10 @@ const answerSelected = (event) => {
         setTimeout(() => {
             clearDivChildren(answersDiv)
 
-            if (questionCounter < questionList.length) {
-                nextQuestion(questionList[questionCounter]);
-            } else {
+            if (isEndOfQuiz()) {
                 togglePageState(doneState);
+            } else {
+                nextQuestion(questionList[questionCounter]);
             }
         }, 500);
 
@@ -197,12 +197,22 @@ const answerSelected = (event) => {
     answered = true;
 };
 
+const isEndOfQuiz = () => {
+    if (questionCounter < questionList.length) {
+        return false
+    } else {
+        return true
+    }
+}
+
+// clears given element of all children
 const clearDivChildren = (divEl) => {
     while (divEl.firstChild) {
         divEl.removeChild(divEl.firstChild);
     }
 };
 
+// runs on page load. Sets the page to the homepage.
 const initialization = () => {
     togglePageState(homeState);
 };
