@@ -128,10 +128,21 @@ const nextQuestion = (question) => {
     resultEl.style.display = 'none';
     
     
+    // for (let index = 0; index < question.answers.length; index++) {
+    //     const element = question.answers[index];
+    //     answersDiv.children[index].textContent = element;
+    //     answersDiv.children[index].dataset.key = index;
+    // }
     for (let index = 0; index < question.answers.length; index++) {
-        const element = question.answers[index];
-        answersDiv.children[index].textContent = element;
-        answersDiv.children[index].dataset.key = index;
+        
+        const answer = question.answers[index];
+        let answerButton = document.createElement('button');
+        console.log(answerButton)
+        answerButton.textContent = answer;
+        answerButton.className = `button question-button`
+        answerButton.type ='button'
+        answerButton.dataset.key = index;
+        answersDiv.appendChild(answerButton)
     }
 };
 
@@ -163,6 +174,9 @@ const answerSelected = (event) => {
         }
         
         setTimeout(() => {
+            while(answersDiv.firstChild){
+                answersDiv.removeChild(answersDiv.firstChild)
+            }
             
             if (questionCounter < questionList.length) {
                 nextQuestion(questionList[questionCounter]);
@@ -175,7 +189,6 @@ const answerSelected = (event) => {
     
     answered = true;
 };
-
 
 const initialization = () => {
     togglePageState(homeState);
