@@ -115,10 +115,13 @@ h1{
     font-weight: bold;
 }
 
-.quiz-done form input{
+.quiz-done form #initials{
     height: 3rem;
     font-size: 1.2rem;
     flex: 2 1;
     border: none;
     border-radius: 5px;
+    min-width: 10px;
+    font-weight: bold;
+    color: var(--xiketic)
 }
