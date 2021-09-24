@@ -27,7 +27,8 @@ body {
 }
 
 
-.homepage, .question-section, .quiz-done{
+.homepage, .question-section, .quiz-done, .scores-section{
+    display: flex;
     flex-flow: column;
     align-items: center;
     margin: 10vh 15vw;
@@ -108,7 +109,7 @@ header .button{
 
 
 
-.start-button{
+.start-button, .reset-scores{
     align-items: center;
 }
 
@@ -183,6 +184,24 @@ header .button{
 
 }
 
-h2 span{
-    animation: rainbow-color 3s infinite;
+h2 span, .score-span{
+    animation: rainbow-color 5s infinite;
+}
+
+/* High Score Styling */
+
+.scores-section p{
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: .75rem;
+}
+
+.scores-section ol li{
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.scores-section ol li::marker{
+    font-size: 1rem;
+    font-weight: normal;
 }
