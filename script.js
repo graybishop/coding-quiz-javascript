@@ -76,7 +76,7 @@ const answersDiv = document.querySelector('.question-section div');
 const questionHeading = document.querySelector('.question-section h1');
 const resultEl = document.querySelector('#result');
 const scoreEl = document.querySelector('#score');
-const finalScoreEl = document.querySelector('.quiz-done h2')
+const finalScoreEl = document.querySelector('.quiz-done h2');
 
 const homeState = 'homepage';
 const quizState = 'quiz';
@@ -95,10 +95,10 @@ let score = {
 };
 
 const finalScoreUpdate = (score) => {
-    let fancyScoreEl =document.createElement('span');
-    fancyScoreEl.textContent =` ${score}`
+    let fancyScoreEl = document.createElement('span');
+    fancyScoreEl.textContent = ` ${score}`;
     finalScoreEl.appendChild(fancyScoreEl);
-}
+};
 
 //Keeps track of changing between home screen, question screen, and finish screen.
 const togglePageState = (newState) => {
@@ -116,7 +116,7 @@ const togglePageState = (newState) => {
         questionDiv.style.display = 'none';
         doneDiv.style.display = 'flex';
 
-        finalScoreUpdate(score.currentValue)
+        finalScoreUpdate(score.currentValue);
     }
 };
 
@@ -133,28 +133,28 @@ const scoreUpdate = () => {
 let answered = false;
 
 const nextQuestion = (question) => {
-    
+
     answered = false;
     questionHeading.textContent = question.question;
     questionHeading.dataset.id = question.identifier;
     resultEl.style.display = 'none';
-    
-    
+
+
     // for (let index = 0; index < question.answers.length; index++) {
     //     const element = question.answers[index];
     //     answersDiv.children[index].textContent = element;
     //     answersDiv.children[index].dataset.key = index;
     // }
     for (let index = 0; index < question.answers.length; index++) {
-        
+
         const answer = question.answers[index];
         let answerButton = document.createElement('button');
-        console.log(answerButton)
+        console.log(answerButton);
         answerButton.textContent = answer;
-        answerButton.className = `button question-button`
-        answerButton.type ='button'
+        answerButton.className = `button question-button`;
+        answerButton.type = 'button';
         answerButton.dataset.key = index;
-        answersDiv.appendChild(answerButton)
+        answersDiv.appendChild(answerButton);
     }
 };
 
@@ -162,10 +162,9 @@ const nextQuestion = (question) => {
 const answerSelected = (event) => {
     console.log(event.target);
     let choice = event.target.dataset.key;
-    
+
     if (answered == false) {
-        
-        
+
         if (choice == questionList[questionCounter].correctAnswer) {
             resultEl.textContent = `That's right!`;
             resultEl.style.color = 'green';
@@ -175,31 +174,33 @@ const answerSelected = (event) => {
             resultEl.style.color = 'red';
             score.currentValue -= 20;
         }
-        
         scoreUpdate();
         resultEl.style.display = 'block';
-        
+
         questionCounter++;
-        
         if (questionCounter == questionList.length) {
             clearInterval(intervalID);
         }
-        
+
         setTimeout(() => {
-            while(answersDiv.firstChild){
-                answersDiv.removeChild(answersDiv.firstChild)
-            }
-            
+            clearDivChildren(answersDiv)
+
             if (questionCounter < questionList.length) {
                 nextQuestion(questionList[questionCounter]);
             } else {
                 togglePageState(doneState);
             }
         }, 500);
-        
+
     }
-    
+
     answered = true;
+};
+
+const clearDivChildren = (divEl) => {
+    while (divEl.firstChild) {
+        divEl.removeChild(divEl.firstChild);
+    }
 };
 
 const initialization = () => {
