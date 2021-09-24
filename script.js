@@ -64,6 +64,7 @@ const answersDiv = document.querySelector('.question-section div');
 const questionHeading = document.querySelector('.question-section h1');
 const resultEl = document.querySelector('#result');
 const scoreEl = document.querySelector('#score');
+const finalScoreEl = document.querySelector('.quiz-done h2')
 
 const homeState = 'homepage';
 const quizState = 'quiz';
@@ -81,7 +82,9 @@ let score = {
     decrementInterval: 1000
 };
 
-
+const finalScoreUpdate = (score) => {
+    finalScoreEl.textContent = `Your final score was: ${score}`
+}
 
 //Keeps track of changing between homescreen, question screen, and finish screen.
 const togglePageState = (newState) => {
@@ -98,6 +101,8 @@ const togglePageState = (newState) => {
         homepageDiv.style.display = 'none';
         questionDiv.style.display = 'none';
         doneDiv.style.display = 'flex';
+
+        finalScoreUpdate(score.currentValue)
     }
 };
 
