@@ -66,15 +66,17 @@ const togglePageState = (newState) => {
         homepageDiv.style.display = 'flex';
         questionDiv.style.display = 'none';
         doneDiv.style.display = 'none';
+        scoreTimerEl.style.opacity = 0
     } else if (pageState == quizState) {
         homepageDiv.style.display = 'none';
         questionDiv.style.display = 'flex';
         doneDiv.style.display = 'none';
+        scoreTimerEl.style.opacity = 1
     } else {
         homepageDiv.style.display = 'none';
         questionDiv.style.display = 'none';
         doneDiv.style.display = 'flex';
-
+        scoreTimerEl.style.opacity = 0
         finalScoreUpdate(score.currentValue);
     }
 };
