@@ -227,74 +227,74 @@ let scoreSubmitted = false;
 //when the user clicks the submit button, it writes the score to the scoreList array and saves it to memory. 
 const saveScore = (event) => {
     event.preventDefault();
+    let initialsValue = document.querySelector('#initials').value;
 
-    if (scoreSubmitted == false) {
+    if (scoreSubmitted == false && initialsValue != '') {
         scoreSubmitted = true;
 
         let newScore = {
-            initials: document.querySelector('#initials').value,
+            initials: initialsValue,
             score: score.currentValue
         };
 
-        if (newScore.initials != '') [
-            scoreList.push(newScore)
-        ];
 
+        scoreList.push(newScore);
+        finalScoreEl.textContent = `Score Submitted!`;
         scoreList = scoreList.sort((a, b) => {
             return b.score - a.score;
         });
-
         localStorage.setItem('scoreList', JSON.stringify(scoreList));
+        setTimeout(initialization, 2000);
 
-        finalScoreEl.textContent = `Score Submitted!`;
-
-        setTimeout(restart, 2000);
+    } else {
+        finalScoreEl.textContent = `No initials given. To restart the quiz, enter your initials and press 'Submit.'`
     }
 
-};
-
-const restart = () => {
-    initialization();
 };
 
 initialization();
 
 //runs on high-scores.html page load. Clears list, populates it with scores. if there are no scores it shows a no scores message. 
 const highScoreInit = () => {
-    let scoreOlEl = document.querySelector('.scores-section ol')
-    clearDivChildren(scoreOlEl)
+    let scoreOlEl = document.querySelector('.scores-section ol');
+    clearDivChildren(scoreOlEl);
 
+    //adds a new list item for each score in storage. 
     scoreList.forEach(element => {
-        let newLi = document.createElement('li')
-        newLi.textContent = `${element.initials} - `
+        let newLi = document.createElement('li');
+        newLi.textContent = `${element.initials} - `;
 
-        let newSpan = document.createElement('span')
-        newSpan.className = `score-span`
-        newSpan.textContent = element.score
+        let newSpan = document.createElement('span');
+        newSpan.className = `score-span`;
+        newSpan.textContent = element.score;
 
-        newLi.append(newSpan)
-        scoreOlEl.append(newLi)
+        newLi.append(newSpan);
+        scoreOlEl.append(newLi);
     });
 
-    if(!scoreOlEl.firstChild){
-        document.querySelector('.scores-section p').textContent = `No scores, yet! Find your high scores listed below. Click the button to reset the list.`
+    //if there are no list items changes the p text. 
+    if (!scoreOlEl.firstChild) {
+        document.querySelector('.scores-section p').textContent = `No scores, yet! Find your high scores listed below. Click the button to reset the list.`;
     }
 
 };
 
 // Event bindings for start button, and answer button. only runs if on index.html.
 if (startButton) {
+    //binds start button
     startButton.addEventListener('click', quizStart);
+    //binds the whole button container for answers.
     answersDiv.addEventListener('click', answerSelected);
+    //binds high score submit button.
     initialsSubmitBtn.addEventListener('click', saveScore);
-} else{
+} else {
     //if the user is not on the homepage, bind the reset scores button, then set up the logic to clear it. 
-    document.querySelector('.reset-scores').addEventListener('click',() => {
-        localStorage.clear()
+    document.querySelector('.reset-scores').addEventListener('click', () => {
+        localStorage.clear();
         //clears list li elements
-        clearDivChildren(document.querySelector('.scores-section ol'))
-        document.querySelector('.scores-section p').textContent = `You've cleared the list!`
-    })
+        clearDivChildren(document.querySelector('.scores-section ol'));
+        document.querySelector('.scores-section p').textContent = `You've cleared the list!`;
+    });
 }
 
 
