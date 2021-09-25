@@ -35,21 +35,6 @@ THEN I can save my initials and my score
 let questionList = [];
 let questionCounter = 0;
 
-// class Question {
-//     constructor(question = ``, answer1 = ``, answer2 = ``, answer3 = ``, answer4 = ``, correctAnswer = 0) {
-//         this.question = question;
-//         this.answer1 = answer1;
-//         this.answer2 = answer2;
-//         this.answer3 = answer3;
-//         this.answer4 = answer4;
-//         this.answers = [answer1, answer2, answer3, answer4];
-//         this.correctAnswer = correctAnswer;
-//         this.identifier = Math.random();
-
-//         questionList.push(this);
-//     }
-// }
-
 class Question {
     constructor(question = ``, answers = [], correctAnswer = 0) {
         this.question = question;
@@ -75,7 +60,7 @@ const doneDiv = document.querySelector('.quiz-done');
 const answersDiv = document.querySelector('.question-section div');
 const questionHeading = document.querySelector('.question-section h1');
 const resultEl = document.querySelector('#result');
-const scoreEl = document.querySelector('#score');
+const scoreTimerEl = document.querySelector('#score');
 const finalScoreEl = document.querySelector('.quiz-done h2');
 const initialsSubmitBtn = document.querySelector('.quiz-done .button');
 
@@ -130,7 +115,7 @@ const scoreUpdate = () => {
     if (score.currentValue < 0) {
         score.currentValue = 0;
     }
-    scoreEl.textContent = `Time/Score: ${score.currentValue}`;
+    scoreTimerEl.textContent = `Time/Score: ${score.currentValue}`;
 };
 
 // Starts next question, fills in question information on page. Hides result from previous question
@@ -209,24 +194,27 @@ const clearDivChildren = (divEl) => {
 
 // runs on page load. Sets the page to the homepage.
 const initialization = () => {
-    let storedScoreList = JSON.parse(localStorage.getItem('scoreList'));
 
+    let storedScoreList = JSON.parse(localStorage.getItem('scoreList'));
     if (storedScoreList !== null) {
         scoreList = storedScoreList;
     }
 
-    finalScoreEl.textContent = `Your final score was:`
-    score.currentValue = 0
-    scoreSubmitted = false
-    questionCounter = 0
-    togglePageState(homeState);
+    //only runs if on index.html.
+    if (finalScoreEl) {
+        finalScoreEl.textContent = `Your final score was:`;
+        score.currentValue = 0;
+        scoreSubmitted = false;
+        questionCounter = 0;
+        togglePageState(homeState);
+    }
 };
 
 // initializes the quiz. starts the scoring system. 
 const quizStart = () => {
     togglePageState(quizState);
     score.currentValue += score.startingBonus;
-    scoreEl.textContent = `Time/Score: ${score.currentValue}`;
+    scoreTimerEl.textContent = `Time/Score: ${score.currentValue}`;
     nextQuestion(questionList[0]);
     intervalID = setInterval(() => {
         score.currentValue -= score.decrementUnit;
@@ -251,14 +239,14 @@ const saveScore = (event) => {
         if (newScore.initials != '') [
             scoreList.push(newScore)
         ];
-        
-        scoreList = scoreList.sort( (a, b) => {
-            return b.score - a.score
-        })
+
+        scoreList = scoreList.sort((a, b) => {
+            return b.score - a.score;
+        });
 
         localStorage.setItem('scoreList', JSON.stringify(scoreList));
 
-        finalScoreEl.textContent = `Score Submitted!`
+        finalScoreEl.textContent = `Score Submitted!`;
 
         setTimeout(restart, 2000);
     }
@@ -271,7 +259,33 @@ const restart = () => {
 
 initialization();
 
-// Event bindings for start button, and answer button. 
-startButton.addEventListener('click', quizStart);
-answersDiv.addEventListener('click', answerSelected);
-initialsSubmitBtn.addEventListener('click', saveScore);
+const highScoreInit = () => {
+    let scoreOlEl = document.querySelector('.scores-section ol')
+    clearDivChildren(scoreOlEl)
+
+    scoreList.forEach(element => {
+        let newLi = document.createElement('li')
+        newLi.textContent = `${element.initials} - `
+
+        let newSpan = document.createElement('span')
+        newSpan.className = `score-span`
+        newSpan.textContent = element.score
+
+        newLi.append(newSpan)
+        scoreOlEl.append(newLi)
+    });
+
+    if(!scoreOlEl.firstChild){
+        document.querySelector('.scores-section p').textContent = `No scores, yet! Find your high scores listed below. Click the button to reset the list.`
+    }
+
+};
+
+// Event bindings for start button, and answer button. only runs if on index.html.
+if (startButton) {
+    startButton.addEventListener('click', quizStart);
+    answersDiv.addEventListener('click', answerSelected);
+    initialsSubmitBtn.addEventListener('click', saveScore);
+}
+
+

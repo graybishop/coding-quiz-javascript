@@ -199,6 +199,8 @@ h2 span, .score-span{
 .scores-section ol li{
     font-size: 1.1rem;
     font-weight: bold;
+    color: var(--platinum);
+    margin-bottom: .5rem;
 }
 
 .scores-section ol li::marker{
