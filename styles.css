@@ -12,6 +12,7 @@
     --green-blue-crayola: #008dd5ff;
 }
 
+/* font style for whole document. */
 *{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 0px;
@@ -25,7 +26,7 @@ body {
     color: var(--platinum);
 }
 
-
+/* display style for main sections on each page. set margin here for more or less spacing. */
 .homepage, .question-section, .quiz-done, .scores-section{
     display: flex;
     flex-flow: column;
@@ -33,7 +34,7 @@ body {
     margin: 10vh 15vw;
 }
 
-/* button Styling */
+/* ALL BUTTON STYLING */
 
 .button{
     display: flex;
@@ -62,7 +63,28 @@ body {
     box-shadow: 0px 5px var(--slate-gray);
 }
 
-/* heading stylings */
+.start-button, .reset-scores{
+    justify-content: center;
+}
+
+/* button on score page. */
+input.button{
+    text-align: center;
+    justify-content: center;
+}
+
+header .button{
+    width: fit-content;
+    font-size: .75rem;
+    min-height: 3rem;
+    margin-left: 1rem;
+}
+
+.question-button:hover{
+    font-size: 1.6rem;
+}
+
+/* HEADING STYLINGS for questions and headings of main sections. */
 
 h1{
     text-align: center;
@@ -70,18 +92,11 @@ h1{
     margin: .74rem;
 }
 
-/* header section styling*/
+/* Styling for Header on the top of all pages.*/
 
 header{
     display: flex;
     justify-content: space-between;
-}
-
-header .button{
-    width: fit-content;
-    font-size: .75rem;
-    min-height: 2rem;
-    margin-left: 1rem;
 }
 
 #score{
@@ -91,10 +106,10 @@ header .button{
     margin: .5rem;
     color: var(--platinum);
     opacity: 0;
-    transition: .3s
+    transition: .25s
 }
 
-/* homepage Styling */
+/* Homepage Styling */
 
 .homepage p {
     font-size: 1rem;
@@ -109,9 +124,6 @@ header .button{
     border-radius: 5px;
 }
 
-.start-button, .reset-scores{
-    justify-content: center;
-}
 
 /* Questions Styling */
 
@@ -120,11 +132,8 @@ header .button{
     text-align: center;
 }
 
-.question-button:hover{
-    font-size: 1.6rem;
-}
 
-/* end page styling */
+/* Final Score Section Styling */
 
 .quiz-done p{
     margin-bottom: 1rem;
@@ -164,7 +173,7 @@ header .button{
     color: var(--xiketic)
 }
 
-
+/* Animation to make the score pop on final screen and on high score list. */
 @keyframes rainbow-color {
     0%{
         color:var(--platinum);
@@ -194,7 +203,7 @@ p span, .score-span{
     animation: rainbow-color 5s infinite;
 }
 
-/* High Score Styling */
+/* High Score Page Styling */
 
 .scores-section p{
     font-size: 1rem;
@@ -212,9 +221,4 @@ p span, .score-span{
 .scores-section ol li::marker{
     font-size: 1rem;
     font-weight: normal;
-}
-
-input.button{
-    text-align: center;
-    justify-content: center;
 }
