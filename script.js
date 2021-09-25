@@ -13,29 +13,32 @@ class Question {
 }
 
 //questions
-const question1 = new Question(`what is the answer to this question`, [`a. this`, `b. not sure`, `c. might be this one`, `ted lasso`], 3);
-const question2 = new Question(`what is question 2 going to be?`, [`could be this`, `not sure`, `maybe this one?`, `not ted lasso`], 2);
-const question3 = new Question(`what is question 3 going to be?`, [`could be this`, `not sure`, `maybe this one?`, `not ted lasso`], 2);
-const question4 = new Question(`what is question 4 going to be?`, [`could be this`, `not sure`, `maybe this one?`, `not ted lasso`], 2);
+const question1 = new Question(`How are JavaScript single line comments started?`, [`/*`, `<!--`, `//`], 2);
+const question2 = new Question(`Which term(s) were introduced as a preferred replacement to 'var' in ECMA2015?`, [`'let' and 'const'`, `'break' and 'continue'`, `while`, `switch`], 0);
+const question3 = new Question(`Which of the following is a JavaScript Event type?`, [`load`, `mouseover`, `keydown`, `all of the above`], 3);
+const question4 = new Question(`What is the structure of an arrow function expression for binding the function 'add'?`, [`const add = {a,b} => (a + b)`, `const add = (a,b) => {a + b}`, `function add => (a,b) = {a + b}`, `add(a,b) = {a + b}`], 1);
+const question5 = new Question(`What value does the following code return? console.log("5" + 1)`, [`// '5 + 1'`, `// 6`, `// NaN`, `// "51"`], 3);
+const question6 = new Question(`What value does the following code return? console.log("4" - 2)`, [`// NaN`, `// null`, `// 2`, `// "42"`], 2);
+const question7add = new Question(`What JavaScript feature is responsible for the previous two answers?`, [`Type coercion`, `Type conversion`, `Compiler confusion`, `Compiler collusion`], 0);
 
-//eles on homepage
+//elements on homepage
 const homepageDiv = document.querySelector('.homepage');
 const startButton = document.querySelector('.start-button');
 const scoreTimerEl = document.querySelector('#score');
 
-//eles on question pages.
+//elements on question pages.
 const questionDiv = document.querySelector('.question-section');
 const answersDiv = document.querySelector('.question-section div');
 const questionHeading = document.querySelector('.question-section h1');
 
-//eles on final page.
+//elements on final page.
 const resultEl = document.querySelector('#result');
 const finalScoreEl = document.querySelector('.quiz-done h2');
 const doneDiv = document.querySelector('.quiz-done');
 const initialsSubmitBtn = document.querySelector('.quiz-done .button');
 
 // configures time result is shown. 
-const resultDelay = 500;
+const resultDelay = 1000;
 let intervalID;
 
 
@@ -66,17 +69,17 @@ const togglePageState = (newState) => {
         homepageDiv.style.display = 'flex';
         questionDiv.style.display = 'none';
         doneDiv.style.display = 'none';
-        scoreTimerEl.style.opacity = 0
+        scoreTimerEl.style.opacity = 0;
     } else if (pageState == quizState) {
         homepageDiv.style.display = 'none';
         questionDiv.style.display = 'flex';
         doneDiv.style.display = 'none';
-        scoreTimerEl.style.opacity = 1
+        scoreTimerEl.style.opacity = 1;
     } else {
         homepageDiv.style.display = 'none';
         questionDiv.style.display = 'none';
         doneDiv.style.display = 'flex';
-        scoreTimerEl.style.opacity = 0
+        scoreTimerEl.style.opacity = 0;
         finalScoreUpdate(score.currentValue);
     }
 };
@@ -222,7 +225,7 @@ const saveScore = (event) => {
         setTimeout(initialization, 2000);
 
     } else {
-        finalScoreEl.textContent = `No initials given. To restart the quiz, enter your initials and press 'Submit.'`
+        finalScoreEl.textContent = `No initials given. To restart the quiz, enter your initials and press 'Submit.'`;
     }
 
 };
