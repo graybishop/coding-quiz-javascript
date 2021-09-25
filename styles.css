@@ -1,16 +1,15 @@
 
 :root{
-    --skobeloff: #156064ff;
-    --caribbean-green: #00c49aff;
-    --naples-yellow: #f8e16cff;
-    --melon: #ffc2b4ff;
-    --coral: #fb8f67ff;
-
+    /* text and background colors */
     --xiketic: #1c0f13ff;
     --slate-gray: #6e7e85ff;
     --opal: #b7ceceff;
     --lavender-gray: #bbbac6ff;
     --platinum: #e2e2e2ff;
+
+    /* result colors */
+    --red-pigment: #ea2b1fff;
+    --green-blue-crayola: #008dd5ff;
 }
 
 *{
@@ -104,7 +103,10 @@ header .button{
 }
 
 .homepage div, .button-list{
-    width: 80%;
+    width: 85%;
+    padding: 5%;
+    background: none;
+    border-radius: 5px;
 }
 
 .start-button, .reset-scores{

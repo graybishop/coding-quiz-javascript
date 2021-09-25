@@ -101,6 +101,7 @@ const nextQuestion = (question) => {
     questionHeading.textContent = question.question;
     questionHeading.dataset.id = question.identifier;
     resultEl.style.display = 'none';
+    answersDiv.style.background ='none';
 
     for (let index = 0; index < question.answers.length; index++) {
 
@@ -122,11 +123,13 @@ const answerSelected = (event) => {
 
         if (choice == questionList[questionCounter].correctAnswer) {
             resultEl.textContent = `That's right!`;
-            resultEl.style.color = 'green';
+            resultEl.style.color = 'var(--green-blue-crayola)';
+            answersDiv.style.background = 'var(--green-blue-crayola)'
             score.currentValue += 300;
         } else {
             resultEl.textContent = `Not quite!`;
-            resultEl.style.color = 'red';
+            resultEl.style.color = 'var(--red-pigment)';
+            answersDiv.style.background = 'var(--red-pigment)'
             score.currentValue -= 200;
         }
         scoreUpdate();
