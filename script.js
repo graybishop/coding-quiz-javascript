@@ -12,31 +12,32 @@ class Question {
     }
 }
 
-
+//questions
 const question1 = new Question(`what is the answer to this question`, [`a. this`, `b. not sure`, `c. might be this one`, `ted lasso`], 3);
 const question2 = new Question(`what is question 2 going to be?`, [`could be this`, `not sure`, `maybe this one?`, `not ted lasso`], 2);
 const question3 = new Question(`what is question 3 going to be?`, [`could be this`, `not sure`, `maybe this one?`, `not ted lasso`], 2);
 const question4 = new Question(`what is question 4 going to be?`, [`could be this`, `not sure`, `maybe this one?`, `not ted lasso`], 2);
 
-
-
+//eles on homepage
 const homepageDiv = document.querySelector('.homepage');
+const startButton = document.querySelector('.start-button');
 const scoreTimerEl = document.querySelector('#score');
 
+//eles on question pages.
 const questionDiv = document.querySelector('.question-section');
 const answersDiv = document.querySelector('.question-section div');
 const questionHeading = document.querySelector('.question-section h1');
 
+//eles on final page.
 const resultEl = document.querySelector('#result');
 const finalScoreEl = document.querySelector('.quiz-done h2');
 const doneDiv = document.querySelector('.quiz-done');
 const initialsSubmitBtn = document.querySelector('.quiz-done .button');
 
-const startButton = document.querySelector('.start-button');
-
+// configures time result is shown. 
 const resultDelay = 500;
 let intervalID;
-let scoreList = [];
+
 
 //object for tracking score 
 let score = {
@@ -108,7 +109,7 @@ const nextQuestion = (question) => {
     }
 };
 
-//function that takes click event input to determine if the answer is correct. Also determines if the the next page is a question or the end page.
+//function that takes click event input to determine if the answer is correct. if isEndOfQuiz then it toggles the page state to the score page.
 const answerSelected = (event) => {
     let choice = event.target.dataset.key;
 
@@ -163,6 +164,7 @@ const clearDivChildren = (divEl) => {
 };
 
 // runs on page load. Sets the page to the homepage.
+let scoreList = [];
 const initialization = () => {
 
     let storedScoreList = JSON.parse(localStorage.getItem('scoreList'));
@@ -199,6 +201,7 @@ const saveScore = (event) => {
     event.preventDefault();
     let initialsValue = document.querySelector('#initials').value;
 
+    //only runs if there has not been a score submitted and the initials text box is not empty.
     if (scoreSubmitted == false && initialsValue != '') {
         scoreSubmitted = true;
 
@@ -207,9 +210,9 @@ const saveScore = (event) => {
             score: score.currentValue
         };
 
-
         scoreList.push(newScore);
         finalScoreEl.textContent = `Score Submitted!`;
+        //sorts list of scores before adding it to local storage. 
         scoreList = scoreList.sort((a, b) => {
             return b.score - a.score;
         });
