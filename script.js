@@ -45,9 +45,9 @@ let intervalID;
 //object for tracking score 
 let score = {
     currentValue: 0,
-    startingBonus: 50,
+    startingBonus: 1000,
     decrementUnit: 1,
-    decrementInterval: 1000
+    decrementInterval: 100
 };
 
 //adds score to final page. 
@@ -123,11 +123,11 @@ const answerSelected = (event) => {
         if (choice == questionList[questionCounter].correctAnswer) {
             resultEl.textContent = `That's right!`;
             resultEl.style.color = 'green';
-            score.currentValue += 20;
+            score.currentValue += 300;
         } else {
             resultEl.textContent = `Not quite!`;
             resultEl.style.color = 'red';
-            score.currentValue -= 20;
+            score.currentValue -= 200;
         }
         scoreUpdate();
         resultEl.style.display = 'block';
