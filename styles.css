@@ -38,9 +38,9 @@ body {
 
 .button{
     display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: flex-start;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
     border: none;
     background-color: var(--opal);
     min-width: min-content;
@@ -53,7 +53,8 @@ body {
     transition: .25s;
     min-height: 3.5rem;
     font-weight: bold;
-    box-shadow: 0px 0px green;
+    box-shadow: 0px 0px var(--slate-gray);
+    text-align: left;
 }
 
 .button:hover{
@@ -69,6 +70,7 @@ h1{
     font-size: 2rem;
     margin: .74rem;
 }
+
 /* header section styling*/
 
 header{
@@ -105,16 +107,15 @@ header .button{
     width: 80%;
 }
 
-
-
 .start-button, .reset-scores{
-    align-items: center;
+    justify-content: center;
 }
 
 /* Questions Styling */
 
 #result{
     font-size: 3rem;
+    text-align: center;
 }
 
 .question-button:hover{
@@ -125,6 +126,11 @@ header .button{
 
 .quiz-done h2{
     margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: .8rem 0px;
+    margin-block-start: unset;
 }
 
 .quiz-done form{
@@ -204,4 +210,9 @@ h2 span, .score-span{
 .scores-section ol li::marker{
     font-size: 1rem;
     font-weight: normal;
+}
+
+input.button{
+    text-align: center;
+    justify-content: center;
 }
