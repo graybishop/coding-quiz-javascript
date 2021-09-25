@@ -259,6 +259,7 @@ const restart = () => {
 
 initialization();
 
+//runs on high-scores.html page load. Clears list, populates it with scores. if there are no scores it shows a no scores message. 
 const highScoreInit = () => {
     let scoreOlEl = document.querySelector('.scores-section ol')
     clearDivChildren(scoreOlEl)
@@ -286,6 +287,14 @@ if (startButton) {
     startButton.addEventListener('click', quizStart);
     answersDiv.addEventListener('click', answerSelected);
     initialsSubmitBtn.addEventListener('click', saveScore);
+} else{
+    //if the user is not on the homepage, bind the reset scores button, then set up the logic to clear it. 
+    document.querySelector('.reset-scores').addEventListener('click',() => {
+        localStorage.clear()
+        //clears list li elements
+        clearDivChildren(document.querySelector('.scores-section ol'))
+        document.querySelector('.scores-section p').textContent = `You've cleared the list!`
+    })
 }
 
 
