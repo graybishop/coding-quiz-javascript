@@ -33,7 +33,7 @@ const questionHeading = document.querySelector('.question-section h1');
 
 //elements on final page.
 const resultEl = document.querySelector('#result');
-const finalScoreEl = document.querySelector('.quiz-done h2');
+const finalScoreEl = document.querySelector('.quiz-done p');
 const doneDiv = document.querySelector('.quiz-done');
 const initialsSubmitBtn = document.querySelector('.quiz-done .button');
 

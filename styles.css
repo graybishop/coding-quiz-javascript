@@ -124,7 +124,7 @@ header .button{
 
 /* end page styling */
 
-.quiz-done h2{
+.quiz-done p{
     margin-bottom: 1rem;
     text-align: center;
     font-size: 1.5rem;
@@ -188,7 +188,7 @@ header .button{
 
 }
 
-h2 span, .score-span{
+p span, .score-span{
     animation: rainbow-color 5s infinite;
 }
 
