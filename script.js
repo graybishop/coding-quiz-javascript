@@ -39,7 +39,7 @@ const initialsSubmitBtn = document.querySelector('.quiz-done .button');
 
 // configures time result is shown. 
 const resultDelay = 1000;
-let intervalID;
+let scoreIntervalID;
 
 
 //object for tracking score 
@@ -145,12 +145,14 @@ const answerSelected = (event) => {
             //un-hides the result element from the page. 
             resultEl.style.display = 'block';
 
-            //if that
             questionCounter++;
-            if (questionCounter == questionList.length) {
-                clearInterval(intervalID);
+
+            //if the last question is answered stop the score from counting down. 
+            if (isEndOfQuiz()) {
+                clearInterval(scoreIntervalID);
             }
 
+            // after a delay, the quiz moves on to the next question, or it ends. 
             setTimeout(() => {
                 clearDivChildren(answersDiv);
 
@@ -163,6 +165,7 @@ const answerSelected = (event) => {
 
         }
 
+        //keeps user from submitting answer multiple times. 
         answered = true;
 
     }
@@ -209,7 +212,7 @@ const quizStart = () => {
     score.currentValue += score.startingBonus;
     scoreTimerEl.textContent = `Time/Score: ${score.currentValue}`;
     nextQuestion(questionList[0]);
-    intervalID = setInterval(() => {
+    scoreIntervalID = setInterval(() => {
         score.currentValue -= score.decrementUnit;
         scoreUpdate();
     }, score.decrementInterval);
