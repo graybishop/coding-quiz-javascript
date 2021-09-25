@@ -1,37 +1,3 @@
-// let testElement = document.createElement('div');
-// testElement.innerHTML = `this is a test element`;
-// document.body.appendChild(testElement);
-
-/* 
-Define class for questions
-
-build homepage that asks if you want to start 
-AS A coding boot camp student
-I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
-SO THAT I can gauge my progress compared to my peers
-
-GIVEN I am taking a code quiz
-WHEN I click the start button
-THEN a timer starts and I am presented with a question
-WHEN I answer a question
-THEN I am presented with another question
-WHEN I answer a question incorrectly
-THEN time is subtracted from the clock
-WHEN all questions are answered or the timer reaches 0
-THEN the game is over
-WHEN the game is over
-THEN I can save my initials and my score
-
-1. homepage with button to start quiz
-
-1. questions pop up, and timer starts in the corner starts at 75 and counts down. 
-2. questions and answered and scores are added or subtracted from the timer
-3. game is over, ask for initials for to ask for high score
-
-1. high score page with list of high scorers
-2. button that lets you clear high scores
-*/
-
 let questionList = [];
 let questionCounter = 0;
 
@@ -55,27 +21,24 @@ const question4 = new Question(`what is question 4 going to be?`, [`could be thi
 
 
 const homepageDiv = document.querySelector('.homepage');
+const scoreTimerEl = document.querySelector('#score');
+
 const questionDiv = document.querySelector('.question-section');
-const doneDiv = document.querySelector('.quiz-done');
 const answersDiv = document.querySelector('.question-section div');
 const questionHeading = document.querySelector('.question-section h1');
-const resultEl = document.querySelector('#result');
-const scoreTimerEl = document.querySelector('#score');
-const finalScoreEl = document.querySelector('.quiz-done h2');
-const initialsSubmitBtn = document.querySelector('.quiz-done .button');
 
-const homeState = 'homepage';
-const quizState = 'quiz';
-const doneState = 'done';
+const resultEl = document.querySelector('#result');
+const finalScoreEl = document.querySelector('.quiz-done h2');
+const doneDiv = document.querySelector('.quiz-done');
+const initialsSubmitBtn = document.querySelector('.quiz-done .button');
 
 const startButton = document.querySelector('.start-button');
 
 const resultDelay = 500;
-
-let pageState = homeState;
 let intervalID;
 let scoreList = [];
 
+//object for tracking score 
 let score = {
     currentValue: 0,
     startingBonus: 50,
@@ -83,6 +46,7 @@ let score = {
     decrementInterval: 1000
 };
 
+//adds score to final page. 
 const finalScoreUpdate = (score) => {
     let fancyScoreEl = document.createElement('span');
     fancyScoreEl.textContent = ` ${score}`;
@@ -90,6 +54,11 @@ const finalScoreUpdate = (score) => {
 };
 
 //Keeps track of changing between home screen, question screen, and finish screen.
+const homeState = 'homepage';
+const quizState = 'quiz';
+const doneState = 'done';
+let pageState = homeState;
+
 const togglePageState = (newState) => {
     pageState = newState;
     if (pageState == homeState) {
@@ -177,6 +146,7 @@ const answerSelected = (event) => {
     answered = true;
 };
 
+//checks how many questions are left. returns true if there are no more questions. 
 const isEndOfQuiz = () => {
     if (questionCounter < questionList.length) {
         return false;
@@ -222,9 +192,9 @@ const quizStart = () => {
     }, score.decrementInterval);
 };
 
-let scoreSubmitted = false;
 
 //when the user clicks the submit button, it writes the score to the scoreList array and saves it to memory. 
+let scoreSubmitted = false;
 const saveScore = (event) => {
     event.preventDefault();
     let initialsValue = document.querySelector('#initials').value;
@@ -252,6 +222,7 @@ const saveScore = (event) => {
 
 };
 
+//call initialization on script load. 
 initialization();
 
 //runs on high-scores.html page load. Clears list, populates it with scores. if there are no scores it shows a no scores message. 
