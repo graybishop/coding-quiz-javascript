@@ -101,7 +101,7 @@ const nextQuestion = (question) => {
     questionHeading.textContent = question.question;
     questionHeading.dataset.id = question.identifier;
     resultEl.style.display = 'none';
-    answersDiv.style.background ='none';
+    answersDiv.style.background = 'none';
 
     for (let index = 0; index < question.answers.length; index++) {
 
@@ -117,42 +117,55 @@ const nextQuestion = (question) => {
 
 //function that takes click event input to determine if the answer is correct. if isEndOfQuiz then it toggles the page state to the score page.
 const answerSelected = (event) => {
-    let choice = event.target.dataset.key;
 
-    if (answered == false) {
+    //checks to make sure one of the answers were clicked. 
+    if (event.target.type == 'button') {
 
-        if (choice == questionList[questionCounter].correctAnswer) {
-            resultEl.textContent = `That's right!`;
-            resultEl.style.color = 'var(--green-blue-crayola)';
-            answersDiv.style.background = 'var(--green-blue-crayola)'
-            score.currentValue += 300;
-        } else {
-            resultEl.textContent = `Not quite!`;
-            resultEl.style.color = 'var(--red-pigment)';
-            answersDiv.style.background = 'var(--red-pigment)'
-            score.currentValue -= 200;
-        }
-        scoreUpdate();
-        resultEl.style.display = 'block';
+        //store the key value from the dataset of the element
+        let choice = event.target.dataset.key;
 
-        questionCounter++;
-        if (questionCounter == questionList.length) {
-            clearInterval(intervalID);
-        }
+        //this can only run if the question has not be answered before. 
+        if (answered == false) {
 
-        setTimeout(() => {
-            clearDivChildren(answersDiv);
-
-            if (isEndOfQuiz()) {
-                togglePageState(doneState);
+            //compares the key value to the answer value of the question and styles the page appropriately. 
+            if (choice == questionList[questionCounter].correctAnswer) {
+                resultEl.textContent = `That's right!`;
+                resultEl.style.color = 'var(--green-blue-crayola)';
+                answersDiv.style.background = 'var(--green-blue-crayola)';
+                score.currentValue += 300;
             } else {
-                nextQuestion(questionList[questionCounter]);
+                resultEl.textContent = `Not quite!`;
+                resultEl.style.color = 'var(--red-pigment)';
+                answersDiv.style.background = 'var(--red-pigment)';
+                score.currentValue -= 200;
             }
-        }, resultDelay);
+
+            scoreUpdate();
+
+            //un-hides the result element from the page. 
+            resultEl.style.display = 'block';
+
+            //if that
+            questionCounter++;
+            if (questionCounter == questionList.length) {
+                clearInterval(intervalID);
+            }
+
+            setTimeout(() => {
+                clearDivChildren(answersDiv);
+
+                if (isEndOfQuiz()) {
+                    togglePageState(doneState);
+                } else {
+                    nextQuestion(questionList[questionCounter]);
+                }
+            }, resultDelay);
+
+        }
+
+        answered = true;
 
     }
-
-    answered = true;
 };
 
 //checks how many questions are left. returns true if there are no more questions. 
